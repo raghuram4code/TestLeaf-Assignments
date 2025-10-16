@@ -1,0 +1,75 @@
+Instructions
+	• Generate ONLY a Selenium Java Code
+	• Use TestNG as the test runner
+	• Add JavaDoc for methods & class.
+	• Use Selenium 2.30+ selenium manager and 	 compatible imports.
+	• Use meaningful method names.
+	• [DO NOT] include explanations or test code.
+	• Follow below Locator Strategies
+	  - Use ID only when it is unique and do not have numbers in it
+	  - [CRITICAL] If ID has a numbers like input-824 in the value attribute, STRICTLY do not use it.
+	  - Use NAME only if ID is not present and when it is unique
+	  -  Use XPath (preferably attribute based or text based)
+	  - [NEVER] use css
+	  - User Page factory like FindBy
+	• Use Explicitwait only [No thread.sleep]
+	• User Page object model
+	* Do not use expected conditions for input fields like visibilityofElementLocated
+
+context
+
+	• You are an AI assistant to write Selenium Automation code
+	• You are expert in Retail Domain
+	• The project is Retail customer
+
+Example
+package week2.day1;
+
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Login {
+	
+	public static void main(String[] args) {
+		// Step 0) Setup the chromedriver using webdrivermanager software
+		WebDriverManager.chromedriver().setup(); // .exe or binary
+		
+		// Step 1) Launch the chrome browser (Class Name -> ChromeDriver)
+		ChromeDriver driver = new ChromeDriver();
+		
+		// Step 2) Load the URL (http://leaftaps.com/opentaps/control/main) -> get
+		driver.get("http://leaftaps.com/opentaps");
+		
+		// Step 2b) Add common time to wait for all/any elements to load (Write once)
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		
+		// Step 3) Maximize the chrome browser
+		driver.manage().window().maximize();
+		
+		// Step 4) Find the username and type the value (DemoSalesManager)
+		driver.findElement(By.id("username1")).sendKeys("DemoSalesManager");
+		
+		// Step 5) Find the password and type the value (crmsfa)
+		driver.findElement(By.id("password")).sendKeys("crmsfa");	
+		
+		// Step 6) Find the login button and click
+		driver.findElement(By.className("decorativeSubmit")).click();
+		
+		// Step 7) Verify the title 
+		String title = driver.getTitle();
+		System.out.println(title);
+
+	}
+
+}
+
+
+Input
+
+<form class="newStyle__Container-sc-10j3d5z-0 cOHarl"><div class="newStyle__Div1-sc-10j3d5z-1 kXFbDU"><h1 class="newStyle__LoginText-sc-10j3d5z-3 gpOntW">Log in</h1></div><div class="newStyle__Div2-sc-10j3d5z-2 hPrRRc"><div id="new-login-button" data-testid="new-login-button" width="100%" height="48px" value="For Individual Standards and Curated Sets" name="For Individual Standards and Curated Sets" aria-label="For Individual Standards and Curated Sets" role="button" tabindex="0" style="height:48px" class="style__ButtonContainer-sc-637ajt-0 kXCxoQ"><div class="style__ButtonValue-sc-637ajt-2 kZyriY button__value--color" color="#000000">For Individual Standards and Curated Sets</div></div><span class="newStyle__InfoText-sc-10j3d5z-5 hayNaf">Or</span><div id="sw-redirect-button" width="100%" height="48px" value="For Custom Subscriptions" name="For Custom Subscriptions" aria-label="For Custom Subscriptions" role="button" tabindex="0" class="style__ButtonContainer-sc-637ajt-0 kXCxoQ"><div class="style__ButtonValue-sc-637ajt-2 kZyriY button__value--color" color="#000000">For Custom Subscriptions</div></div><div class="newStyle__Separator-sc-10j3d5z-4 gcRMyL"></div><div class="newStyle__Div3-sc-10j3d5z-6 gWQHUY"><span>New user?</span><div id="create-acount-link" class="newStyle__CreateAccountLink-sc-10j3d5z-7 gGnYeg">Create an account on Store</div></div></div></form>
+
