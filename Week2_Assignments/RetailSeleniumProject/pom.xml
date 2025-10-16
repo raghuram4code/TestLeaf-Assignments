@@ -1,0 +1,56 @@
+xml version=1.0 encoding=UTF-8
+project xmlns=httpmaven.apache.orgPOM4.0.0
+         xmlnsxsi=httpwww.w3.org2001XMLSchema-instance
+         xsischemaLocation=httpmaven.apache.orgPOM4.0.0
+         httpmaven.apache.orgxsdmaven-4.0.0.xsd
+    modelVersion4.0.0modelVersion
+
+    groupIdweek2.day1groupId
+    artifactIdRetailSeleniumProjectartifactId
+    version1.0-SNAPSHOTversion
+
+    properties
+        maven.compiler.source11maven.compiler.source
+        maven.compiler.target11maven.compiler.target
+        project.build.sourceEncodingUTF-8project.build.sourceEncoding
+    properties
+
+    dependencies
+        !-- Selenium Java --
+        dependency
+            groupIdorg.seleniumhq.seleniumgroupId
+            artifactIdselenium-javaartifactId
+            version4.21.0version
+        dependency
+
+        !-- WebDriverManager --
+        dependency
+            groupIdio.github.bonigarciagroupId
+            artifactIdwebdrivermanagerartifactId
+            version5.9.2version
+        dependency
+
+        !-- TestNG --
+        dependency
+            groupIdorg.testnggroupId
+            artifactIdtestngartifactId
+            version7.10.2version
+            scopetestscope
+        dependency
+    dependencies
+
+    build
+        plugins
+            plugin
+                groupIdorg.apache.maven.pluginsgroupId
+                artifactIdmaven-surefire-pluginartifactId
+                version3.2.5version
+                configuration
+                    suiteXmlFiles
+                        suiteXmlFiletestng.xmlsuiteXmlFile
+                    suiteXmlFiles
+                configuration
+            plugin
+        plugins
+    build
+project
