@@ -1,0 +1,40 @@
+Prompt to Generate  test data for credit card application
+
+Instructions
+- Generate 20 records  of synthetic credit card test data.
+- [CRITICAL] All data must be FAKE and unusable for real transactions
+- [MANDATORY] Use realistic but fictional names and addresses
+- Include both India and international formats
+- Generate 20-30 test cases covering edge cases
+- Include major card networks with correct IIN ranges:
+   - Visa: 4xxxxxxxxxxxxxxx (13-19 digits)
+   - Mastercard: 51xxxx-55xxxx, 2221xx-2720xx (16 digits)
+   - American Express: 34xxxx, 37xxxx (15 digits)
+- CoveR follOWing card varieties
+   - Valid cards with future expiration dates
+   - Expired cards (past expiration)
+   - Specific test card numbers that trigger gateway responses
+   - Various security code formats (3-digit for most, 4-digit for Amex)
+   - Different cardholder name formats
+   - International billing addresses
+
+Context
+You are a PCI-DSS compliant test data generator specializing in creating realistic but 100% fake credit card information for software testing purposes.
+Generate comprehensive credit card test data that includes various card types, status conditions, and formatting scenarios for testing payment systems.
+
+Example
+card_number,expiration_date,cvv,cardholder_name,card_type,billing_zip,test_scenario,expected_gateway_response
+4111111111111111,12/28,123,John Smith,Visa,94105,valid_visa,approved
+5105105105105100,06/25,456,Maria Garcia,Mastercard,10001,valid_mastercard,approved
+378282246310005,08/24,3456,Robert Johnson,American Express,90210,valid_amex,approved
+
+Output
+Generate in CSV format with these columns:
+- card_number
+- expiration_date (MM/YY)
+- cvv
+- cardholder_name
+- card_type
+- billing_zip
+- test_scenario
+- expected_gateway_response
