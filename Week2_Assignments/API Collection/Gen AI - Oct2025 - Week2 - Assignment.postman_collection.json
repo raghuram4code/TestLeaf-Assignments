@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "2a427388-1ca6-40d3-8ba4-6d84de626438",
+		"name": "Gen AI - Oct2025 - Week2 - Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20538247"
+	},
+	"item": [
+		{
+			"name": "HA1b -  Audio to Text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>ID</th>",
+							"        <th>Object</th>",
+							"        <th>Created</th>",
+							"        <th>Model</th>",
+							"        <th>Index</th>",
+							"        <th>Role</th>",
+							"        <th>Content</th>",
+							"        <th>Finish Reason</th>",
+							"        <th>Queue Time</th>",
+							"        <th>Prompt Tokens</th>",
+							"        <th>Prompt Time</th>",
+							"        <th>Completion Tokens</th>",
+							"        <th>Completion Time</th>",
+							"        <th>Total Tokens</th>",
+							"        <th>Total Time</th>",
+							"        <th>System Fingerprint</th>",
+							"        <th>X Groq ID</th>",
+							"    </tr>",
+							"    ",
+							"    <tr>",
+							"        <td>{{id}}</td>",
+							"        <td>{{object}}</td>",
+							"        <td>{{created}}</td>",
+							"        <td>{{model}}</td>",
+							"        <td>{{choices.0.index}}</td>",
+							"        <td>{{choices.0.message.role}}</td>",
+							"        <td>{{choices.0.message.content}}</td>",
+							"        <td>{{choices.0.finish_reason}}</td>",
+							"        <td>{{usage.queue_time}}</td>",
+							"        <td>{{usage.prompt_tokens}}</td>",
+							"        <td>{{usage.prompt_time}}</td>",
+							"        <td>{{usage.completion_tokens}}</td>",
+							"        <td>{{usage.completion_time}}</td>",
+							"        <td>{{usage.total_tokens}}</td>",
+							"        <td>{{usage.total_time}}</td>",
+							"        <td>{{system_fingerprint}}</td>",
+							"        <td>{{x_groq.id}}</td>",
+							"    </tr>",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    var res = pm.response.json();",
+							"    return {response: res};",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "model",
+							"value": "{{AudioModel}}",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/iamra/Downloads/Saraswathi Namastubhyam l K S Chithra.mp3"
+						},
+						{
+							"key": "type",
+							"value": "audio",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "prompt",
+							"value": "- Transcribe provided audio accurately.\n- Preserve natural flow of the speaker/singer.\n- Include speaker labels (e.g., Speaker 1, Speaker 2) if more than one person is talking.\n- If unclear words appear, mark them as [inaudible] or [unclear].\n- Detect and note the spoken language(s).\n- Briefly describe tone (formal, conversational, emotional, musical, instructional, etc.).\n- If it’s a meeting, interview, or discussion: provide a concise summary and list of decisions, next steps, or action points.\n- If it’s a lecture, training, or educational audio: outline key topics, concepts, and learning takeaways.\n- If it’s a song, poem, or prayer: provide transliteration (if non-English) and an English interpretation maintaining cultural and poetic accuracy.",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.groq.com/openai/v1/audio/transcriptions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"groq",
+						"com"
+					],
+					"path": [
+						"openai",
+						"v1",
+						"audio",
+						"transcriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HA1c - Captcha to text",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"model\": {{captchaModle}},\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"Extract the text from this image and let the upper or lower cases stay as it is. Return only those characters\"\n        },\n        {\n          \"type\": \"image_url\",\n          \"image_url\": { \n            \"url\": \"data:image/png;base64,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\"\n          },\n         \"temperature\": 0.1\n        }\n      ]\n    }\n   \n  ],\n  \"max_tokens\": 500\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.groq.com/openai/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"groq",
+						"com"
+					],
+					"path": [
+						"openai",
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HA1a - User story to Non functional Test cases",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"model\": {{textModel}},\n\"messages\": [{\n    \"role\": \"user\",\n    \"content\": \"You are an AI assistant acting as a Senior QA Engineer with 15 years of experience in non-functional testing. Your task is to generate a comprehensive suite of non-functional test cases (covering Performance, Scalability, Security, and Accessibility) based on the provided user story.\\n\\nInstructions:\\n- Analyze the user story’s functionality, data volume, and user interaction to identify risks across key quality attributes.\\n- Generate only test cases if the user story impacts non-functional behavior (e.g., file uploads, system load, data handling).\\n- Each test case must include: Test Category, Specific Attribute, Test Case ID, Test Case Description & Scenario, Test Steps / Conditions, and Success Criteria / Pass-Fail Metric.\\n- Include measurable thresholds (e.g., response time < 2s, concurrency ≥ 25 users, file size ≤ 950 MB).\\n- Prioritize high-impact, realistic, and context-aware scenarios that can be executed within a 4-week testing cycle.\\n- For Performance testing, address: peak user concurrency, response time thresholds, resource utilization (CPU/memory), and degradation behavior under overload.\\n- For Security testing, cover: input validation, authentication enforcement, and prevention of sensitive data exposure.\\n- Output must be strictly limited to the structured test cases and a brief summary—no explanations, disclaimers, or extra text.\\n\\nOutput Format:\\n{\\n summary:<brief risk-focused analysis of the user story>,\\n test_cases: [\\n {\\n test_category: Performance|Scalability|Security|Accessibility,\\n specific_attribute: e.g., Load Testing, Input Validation,\\n test_case_id: e.g., PERF-UPLOAD-01,\\n description: Clear scenario description,\\n test_steps: concrete, executable steps\\n success_criteria: Measurable pass/fail metric with thresholds\\n },\\n ...\\n ]\\n}\\n\\nUser Story:\\nBackground We have just published a new edition of this standard, AS 1742.2:2022, which contains a very large number of image files. 666 in total and this is likely to be the largest we need to handle.\\n\\nAnd when tried to load the zip containing the .eps format images - it failed giving the error message below \\n\\nThe Source zip file is 191 MB \\n\\nScope - NISO Phase SIM user interface no impact on HAPI\\n\\nAcceptance Criteria\\n\\nGiven NISO Phase I SIM allows upload of zip folders as binary attachments\\n\\nWhen the SIM Librarian clicks the option to Upload New File\\n\\nThen\\n\\nNISO Phase I SIM should allow upload of zip files up to 950 MB\\n\\nIf you need the real zip for testing - please contact Renata Plisek \\n\\nTest\\n\\nUpload zip folders of 120 MB, 150 MB and 200 MB to verify that SIM can support expected user operations without disruption\"\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.groq.com/openai/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"groq",
+						"com"
+					],
+					"path": [
+						"openai",
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate credit card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Visualization Script",
+							"// Visualization Script",
+							"const template = `",
+							"<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">",
+							"  <thead>",
+							"    <tr>",
+							"      <th>Card Number</th>",
+							"      <th>Expiration Date</th>",
+							"      <th>CVV</th>",
+							"      <th>Cardholder Name</th>",
+							"      <th>Card Type</th>",
+							"      <th>Billing Zip</th>",
+							"      <th>Test Scenario</th>",
+							"      <th>Expected Gateway Response</th>",
+							"    </tr>",
+							"  </thead>",
+							"  <tbody>",
+							"    {{#each records}}",
+							"      <tr>",
+							"        <td>{{card_number}}</td>",
+							"        <td>{{expiration_date}}</td>",
+							"        <td>{{cvv}}</td>",
+							"        <td>{{cardholder_name}}</td>",
+							"        <td>{{card_type}}</td>",
+							"        <td>{{billing_zip}}</td>",
+							"        <td>{{test_scenario}}</td>",
+							"        <td>{{expected_gateway_response}}</td>",
+							"      </tr>",
+							"    {{/each}}",
+							"  </tbody>",
+							"</table>`;",
+							"",
+							"function createPayload() {",
+							"    let data = pm.response.json();",
+							"    // Try to find the array of records in the response",
+							"    let records = [];",
+							"    if (Array.isArray(data)) {",
+							"        records = data;",
+							"    } else if (data.choices && Array.isArray(data.choices) && data.choices[0]?.message?.content) {",
+							"        // Try to parse CSV from content if present",
+							"        const content = data.choices[0].message.content;",
+							"        // Try to parse as CSV if possible",
+							"        records = parseCSV(content);",
+							"    } else if (data.records && Array.isArray(data.records)) {",
+							"        records = data.records;",
+							"    }",
+							"    return { records };",
+							"}",
+							"",
+							"// Helper to parse CSV string into array of objects",
+							"function parseCSV(csv) {",
+							"    const lines = csv.trim().split('\\n');",
+							"    if (lines.length < 2) return [];",
+							"    const headers = lines[0].split(',').map(h => h.trim());",
+							"    return lines.slice(1).map(line => {",
+							"        const values = line.split(',');",
+							"        let obj = {};",
+							"        headers.forEach((h, i) => { obj[h] = values[i] ? values[i].trim() : \"\"; });",
+							"        return obj;",
+							"    });",
+							"}",
+							"",
+							"pm.visualizer.set(template, createPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"model\": \"openai/gpt-oss-120b\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Instructions\\n- Generate 20 records  of synthetic credit card test data.\\n- [CRITICAL] All data must be FAKE and unusable for real transactions\\n- [MANDATORY] Use realistic but fictional names and addresses\\n- Include both India and international formats\\n- Generate 20-30 test cases covering edge cases\\n- Include major card networks with correct IIN ranges:\\n   - Visa: 4xxxxxxxxxxxxxxx (13-19 digits)\\n   - Mastercard: 51xxxx-55xxxx, 2221xx-2720xx (16 digits)\\n   - American Express: 34xxxx, 37xxxx (15 digits)\\n- CoveR follOWing card varieties\\n   - Valid cards with future expiration dates\\n   - Expired cards (past expiration)\\n   - Specific test card numbers that trigger gateway responses\\n   - Various security code formats (3-digit for most, 4-digit for Amex)\\n   - Different cardholder name formats\\n   - International billing addresses\\n\\nContext\\nYou are a PCI-DSS compliant test data generator specializing in creating realistic but 100% fake credit card information for software testing purposes.\\nGenerate comprehensive credit card test data that includes various card types, status conditions, and formatting scenarios for testing payment systems.\\n\\nExample\\ncard_number,expiration_date,cvv,cardholder_name,card_type,billing_zip,test_scenario,expected_gateway_response\\n4111111111111111,12/28,123,John Smith,Visa,94105,valid_visa,approved\\n5105105105105100,06/25,456,Maria Garcia,Mastercard,10001,valid_mastercard,approved\\n378282246310005,08/24,3456,Robert Johnson,American Express,90210,valid_amex,approved\\n\\nOutput\\nGenerate in CSV format with these columns:\\n- card_number\\n- expiration_date (MM/YY)\\n- cvv\\n- cardholder_name\\n- card_type\\n- billing_zip\\n- test_scenario\\n- expected_gateway_response\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": \"As an AI Assistant give me test data in a table format\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"only Java selenium code should be displayed along with the comments\"\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.groq.com/openai/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"groq",
+						"com"
+					],
+					"path": [
+						"openai",
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "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",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "textModel",
+			"value": ""
+		},
+		{
+			"key": "AudioModel",
+			"value": ""
+		},
+		{
+			"key": "captchaModle",
+			"value": ""
+		}
+	]
+}
