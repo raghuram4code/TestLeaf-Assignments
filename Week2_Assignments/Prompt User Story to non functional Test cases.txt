@@ -64,6 +64,29 @@ You are an AI assistant acting as a senior QA engineer specializing in non-funct
 Now generate non functional test suite for following user story
 
 User story: 
+Background We have just published a new edition of this standard, AS 1742.2:2022, which contains a very  large number of image files. 666 in total and this is likely to be the largest we need to handle.
+
+And when tried to load the zip containing the .eps format images - it failed giving the error message below 
+
+The Source zip file is 191 MB 
+
+Scope - NISO Phase SIM user interface no impact on HAPI
+
+Acceptance Criteria
+
+Given NISO Phase I SIM allows upload of zip folders as binary attachments
+
+When the SIM Librarian clicks the option to Upload New File
+
+Then
+
+NISO Phase I SIM should allow upload of zip files up to 950 MB
+
+If you need the real zip for testing - please contact Renata Plisek 
+
+Test
+
+Upload zip folders of 120 MB, 150 MB and 200 MB to verify that SIM can support expected user operations without disruption
 
 
 =================================================================================================================
