@@ -1,0 +1,138 @@
+Use Playwright v1.56+ syntax and best practices for TypeScript.
+Preserve all original test steps exactly—do not add, remove, or modify any logical steps from the source.
+Use the same locators as defined in the Selenium Java code (e.g., if the Java code uses By.id("foo"), use '#foo' in Playwright).
+Do not hardcode sleep or waitForTimeout—use Playwright’s built-in auto-waiting mechanisms (e.g., await page.locator(...).click(), await page.waitForURL(), etc.).
+If a Selenium Java feature has no direct equivalent in Playwright TypeScript, insert a comment: // not implemented.
+Include clear comments in the TypeScript code to explain each step, mirroring the intent of the original Java code.
+The output must be valid Playwright TypeScript—not generic TypeScript or pseudocode.
+Keep the timeout as 60 seconds
+Make Playwright not to click cancel button in alert automatically (by default it clicks cancel button)
+
+Context
+
+You are an AI assistant specialized in test automation migration. 
+Your task is to accurately translate legacy Selenium Java test scripts into modern, idiomatic Playwright TypeScript scripts while maintaining functional parity and leveraging Playwright’s native capabilities.
+
+Sample Selenium Java code
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import static org.junit.Assert.*;
+
+public class PlaywrightSiteTestJUnit {
+    
+    WebDriver driver;
+    WebDriverWait wait;
+    
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+    
+    @Test
+    public void testHasTitle() {
+        driver.get("https://playwright.dev/");
+        
+        String pageTitle = driver.getTitle();
+        assertTrue("Page title should contain 'Playwright'", 
+                  pageTitle.contains("Playwright"));
+    }
+    
+    @Test
+    public void testGetStartedLink() {
+        driver.get("https://playwright.dev/");
+        
+        WebElement getStartedLink = wait.until(
+            ExpectedConditions.elementToBeClickable(By.linkText("Get started"))
+        );
+        getStartedLink.click();
+        
+        WebElement heading = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h1[contains(text(), 'Installation')]")
+            )
+        );
+        
+        assertTrue("Installation heading should be visible", 
+                  heading.isDisplayed());
+    }
+    
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
+
+Sample Playwright code
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import static org.junit.Assert.*;
+
+public class PlaywrightSiteTestJUnit {
+    
+    WebDriver driver;
+    WebDriverWait wait;
+    
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+    
+    @Test
+    public void testHasTitle() {
+        driver.get("https://playwright.dev/");
+        
+        String pageTitle = driver.getTitle();
+        assertTrue("Page title should contain 'Playwright'", 
+                  pageTitle.contains("Playwright"));
+    }
+    
+    @Test
+    public void testGetStartedLink() {
+        driver.get("https://playwright.dev/");
+        
+        WebElement getStartedLink = wait.until(
+            ExpectedConditions.elementToBeClickable(By.linkText("Get started"))
+        );
+        getStartedLink.click();
+        
+        WebElement heading = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h1[contains(text(), 'Installation')]")
+            )
+        );
+        
+        assertTrue("Installation heading should be visible", 
+                  heading.isDisplayed());
+    }
+    
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
